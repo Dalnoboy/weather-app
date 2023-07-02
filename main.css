@@ -74,6 +74,12 @@
   font-weight: 300;
   line-height: 1;
 }
+.input:-webkit-autofill,
+.input:-webkit-autofill:hover,
+.input:-webkit-autofill:focus {
+  transition: background-color 5000s ease-in-out 0s;
+}
+
 .alb {
   width: 400px;
   height: 640px;
@@ -125,6 +131,13 @@
   font-weight: 400;
   margin: 0;
 }
+.card-country {
+  color: #932121;
+  font-size: 16px;
+  font-family: Rubik;
+  font-weight: 400;
+  margin: 0;
+}
 .temp {
   color: #000;
   font-size: 64px;
@@ -147,7 +160,7 @@
 }
 .img {
   height: 100px;
-  padding: 15px 0 0 0;
+  padding: 5px 0 0 0;
 }
 .days {
   display: flex;
@@ -186,7 +199,7 @@
 }
 .daySmallTemp {
   color: #000;
-  font-size: 32px;
+  font-size: 20px;
   font-family: Rubik;
   font-weight: 300;
 }
