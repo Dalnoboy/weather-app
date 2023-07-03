@@ -1,15 +1,15 @@
 let bg = document.querySelector('.mouse-parallax-bg');
 let card1 = document.querySelector('.mouse-parallax-card-1');
+let city = 'Gort';
 
 window.addEventListener('mousemove', function (e) {
   let x = e.clientX / window.innerWidth;
   let y = e.clientY / window.innerHeight;
   bg.style.transform = 'translate(-' + x * 20 + 'px, -' + y * 20 + 'px)';
-  card1.style.transform = 'translate(+' + x * 10 + 'px, -' + y * 10 + 'px)';
+  card1.style.transform = 'translate(+' + x * 5 + 'px, -' + y * 5 + 'px)';
 });
 
 const header = document.querySelector('.albCard-bg');
-
 const form = document.querySelector('#form');
 const input = document.querySelector('#inputCity');
 
@@ -96,23 +96,14 @@ async function getWeather(city) {
   const url = `https://api.weatherapi.com/v1/forecast.json?key=2172d717d2ec429281b151502233006&q=${city}&days=3`;
   const response = await fetch(url);
   const data = await response.json();
-  console.log(data);
+
   return data;
 }
-
-form.onsubmit = async function (e) {
-  e.preventDefault();
-  let city = input.value.trim();
-  const data = await getWeather(city);
-
+function buildCards(data) {
   if (data.error) {
     removeCards();
     showError(data.error.message);
   } else {
-    // console.log(data);
-    // console.log(data.forecast.forecastday[0].day.condition);
-    // console.log(data.forecast.forecastday[0].day.condition.icon);
-
     const weatherData = {
       curIcon: data.current.condition.icon,
       name: data.location.name,
@@ -135,4 +126,15 @@ form.onsubmit = async function (e) {
     removeCards();
     showCards(weatherData);
   }
+}
+window.onload = async function (e) {
+  e.preventDefault();
+  const data = await getWeather(city);
+  buildCards(data);
+};
+form.onsubmit = async function (e) {
+  e.preventDefault();
+  city = input.value.trim();
+  const data = await getWeather(city);
+  buildCards(data);
 };
